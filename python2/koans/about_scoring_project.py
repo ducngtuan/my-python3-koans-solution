@@ -34,8 +34,23 @@ from runner.koan import *
 # Your goal is to write the score method.
 
 def score(dice):
-    # You need to write this method
-    pass
+    result = 0
+
+    import itertools
+    groups = itertools.groupby(sorted(dice))
+    for k, g in groups:
+        count = len(list(g))
+        if count >= 3:
+            if k == 1:
+                result += 1000
+            else:
+                result += k * 100
+            count -= 3
+
+        if k == 1: result += 100 * count
+        if k == 5: result += 50 * count
+        
+    return result
 
 
 class AboutScoringProject(Koan):
